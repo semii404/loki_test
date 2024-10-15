@@ -7,7 +7,7 @@ spec:
   releaseName: loki
   chart:
     spec:
-      chart: loki
+      chart: grafana/loki 
       version: "6.10.0"
       sourceRef:
         kind: HelmRepository
@@ -94,7 +94,7 @@ spec:
   releaseName: loki
   chart:
     spec:
-      chart: loki
+      chart: grafana/loki
       version: "6.10.0"
       sourceRef:
         kind: HelmRepository
