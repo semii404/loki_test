@@ -10,5 +10,5 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: loki-operator
-  targetNamespace: loki-operator
+    name: loki-test
+  targetNamespace: loki-test
