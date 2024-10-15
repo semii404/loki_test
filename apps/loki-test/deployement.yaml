@@ -90,7 +90,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: loki-core
-  namespace: core
+  namespace: loki
 spec:
   releaseName: loki
   chart:
