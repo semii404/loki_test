@@ -11,4 +11,3 @@ spec:
   sourceRef:
     kind: GitRepository
     name: loki-test
-  targetNamespace: loki-test
