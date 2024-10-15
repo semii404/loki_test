@@ -1,10 +1,10 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: loki
   namespace: loki
 spec:
-  releaseName: loki
+  releaseName: try-manual
   chart:
     spec:
       chart: grafana/loki
@@ -12,7 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: loki
-        namespace: flux-system
+        namespace: loki
   interval: 50m
   install:
     remediation:
@@ -100,7 +100,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: loki
-        namespace: flux-system
+        namespace: loki
   interval: 50m
   install:
     remediation:
