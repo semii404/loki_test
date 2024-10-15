@@ -4,14 +4,14 @@ metadata:
   name: loki
   namespace: loki
 spec:
-  releaseName: loki
+  releaseName: grafana
   chart:
     spec:
-      chart: grafana/loki 
+      chart: loki 
       version: "6.10.0"
       sourceRef:
         kind: HelmRepository
-        name: grafana/loki 
+        name: loki 
   interval: 50m
   install:
     remediation:
@@ -91,14 +91,14 @@ metadata:
   name: loki-core
   namespace: loki
 spec:
-  releaseName: loki
+  releaseName: grafana
   chart:
     spec:
-      chart: grafana/loki 
+      chart: loki 
       version: "6.10.0"
       sourceRef:
         kind: HelmRepository
-        name: grafana/loki 
+        name: loki 
   interval: 50m
   install:
     remediation:
