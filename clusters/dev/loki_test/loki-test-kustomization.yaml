@@ -10,4 +10,4 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: loki-test
+    name: loki_test
