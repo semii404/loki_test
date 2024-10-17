@@ -6,6 +6,10 @@ metadata:
 spec:
   interval: 5m0s
   prune: true
+  path: ./apps/loki-test
+  sourceRef:
+    kind: GitRepository
+    name: loki_test
   resources:
     - helm-repo.yaml     # Apply Helm repository first
     - configmap.yaml     # Apply ConfigMap second
