@@ -4,10 +4,13 @@ metadata:
   name: loki-stack
   namespace: loki
 spec:
-  interval: 10m
-  path: "."
+  interval: 5m0s
+  path: ./apps/loki-test  # Ensure this path is correct
   prune: true
+  sourceRef:
+    kind: GitRepository
+    name: loki_test  # Reference your GitRepository
   resources:
-    - helm-repo.yaml
-    - configmap.yaml
-    - helmrelease.yaml
+    - helm-repo.yaml     # Apply Helm repository first
+    - configmap.yaml     # Apply ConfigMap second
+    - helmrelease.yaml    # Appl
