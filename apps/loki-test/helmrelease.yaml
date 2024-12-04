@@ -1,0 +1,27 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: ha-prom
+spec:
+  releaseName: kube-prometheus-stack
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: ha-prom
+  valuesFrom:
+    - configMapKeyRef:
+        name: prometheus-alertmanager-config
+        key: alertmanager.yaml
+    - configMapKeyRef:
+        name: prometheus-alertmanager-config
+        key: prometheus.yaml
+    - configMapKeyRef:
+        name: prometheus-alertmanager-config
+        key: prometheusOperator.yaml
+  install:
+    remediation:
+      retries: 3

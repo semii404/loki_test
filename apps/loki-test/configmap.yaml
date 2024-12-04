@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-alertmanager-config
+  namespace: ha-prom
+data:
+  alertmanager.yaml: |
+    alertmanager:
+      config:
+        route:
+          group_by: [ 'alertname' ]
+          group_wait: 30s
+          group_interval: 40s
+          repeat_interval: 12h
+          receiver: 'email-config'
+          routes:
+          - receiver: 'email-config'
+            matchers: []
+      receivers:
+        - name: 'email-config'
+          email_configs:
+            - to: 'test@example.com'
+              from: 'alertmanager@localhost'
+              smarthost: 'mailhog:1025'
+              require_tls: false
+              headers:
+                subject: '[Alert] {{ .GroupLabels.alertname }} Replica: {{ range .Alerts }} Cluster: {{ .Labels.cluster }} {{ break }}{{ end }}'
+              html: |
+                {{ range .Alerts }}
+                    <b>Alert:</b> {{ .Labels.alertname }}<br>
+                    <b>Severity:</b> {{ .Labels.severity }}<br>
+                    <b>Cluster:</b> {{ .Labels.cluster }}<br>
+                    <b>Details:</b> <pre>{{ .Annotations.description }}</pre><br><br>
+                    {{ break }} <!-- Stop after the first alert -->
+                {{ end }}
+  prometheus.yaml: |
+    prometheus:
+      prometheusSpec:
+        externalLabels:
+          replica: "prometheus-replica-$(POD_NAME)"
+          cluster: "$(POD_NAME)"
+        replicas: 2
+        additionalAlertRelabelConfigs:
+          - source_labels: [replica]
+            regex: (.+)\d+
+            target_label: replica
+  prometheusOperator.yaml: |
+    prometheusOperator:
+      admissionWebhooks:
+        deployment:
+          replicas: 2
