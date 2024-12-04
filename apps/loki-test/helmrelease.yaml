@@ -13,15 +13,5 @@ spec:
         name: prometheus-community
         namespace: ha-prom
   valuesFrom:
-    - configMapKeyRef:
-        name: prometheus-alertmanager-config
-        key: alertmanager.yaml
-    - configMapKeyRef:
-        name: prometheus-alertmanager-config
-        key: prometheus.yaml
-    - configMapKeyRef:
-        name: prometheus-alertmanager-config
-        key: prometheusOperator.yaml
-  install:
-    remediation:
-      retries: 3
+    - kind: ConfigMap
+      name: prometheus-alertmanager-config
