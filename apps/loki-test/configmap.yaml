@@ -21,7 +21,7 @@ data:
             email_configs:
               - to: 'test@example.com'  # This is the email address that will receive the alert, captured by MailHog
                 from: 'alertmanager@localhost'  # Sender email address
-                smarthost: 'mailhog:1025'  # MailHog SMTP service running in Kubernetes
+                smarthost: '192.168.121.22:1025'  # MailHog SMTP service running in Kubernetes
                 require_tls: false  # MailHog does not require TLS
                 headers:
                   subject: '[Alert] {{ .GroupLabels.alertname }} Replica: {{ range .Alerts }} Cluster: {{ .Labels.cluster }} {{ break }}{{ end }}'
@@ -43,12 +43,11 @@ data:
           replicas: 2
 
     prometheus:
-      promerheusSpec:
+      prometheusSpec:
+        replicas: 2
         externalLabels:
           replica: "prometheus-replica-$(POD_NAME)"
           cluster: "$(POD_NAME)"
-        replicas: 2
-      
         additionalAlertRelabelConfigs:
         - source_labels: [replica]
           regex: (.+)\d+

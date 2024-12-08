@@ -1,10 +1,11 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: kube-prometheus-stack
   namespace: ha-prom
 spec:
   releaseName: kube-prometheus-stack
+  interval: 1h
   chart:
     spec:
       chart: kube-prometheus-stack
